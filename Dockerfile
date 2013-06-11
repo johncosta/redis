@@ -27,7 +27,7 @@ RUN rm redis-2.4.18.tar.gz
 
 # Redis installs with prompts to control configuration
 # Use the expect script to select the default configuration 
-RUN cd /redis-2.4.18/utils/; wget --no-check-certificate https://raw.github.com/johncosta/redis/2.4/utils/expect_configure.sh 
+RUN cd /redis-2.4.18/utils/; wget --no-check-certificate https://raw.github.com/johncosta/redis/2.4-dockerized/utils/expect_configure.sh 
 RUN chmod 755 /redis-2.4.18/utils/expect_configure.sh 
 RUN /redis-2.4.18/utils/expect_configure.sh
 
