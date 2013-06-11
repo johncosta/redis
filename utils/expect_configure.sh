@@ -2,7 +2,7 @@
 
 set timeout 20
 
-spawn "/redis-2.4.18/utils/install_server.sh"
+spawn "/redis-2.6.13/utils/install_server.sh"
 
 
 expect "Please select the redis port for this instance:" { send "6379\r" }
