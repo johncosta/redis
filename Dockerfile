@@ -30,7 +30,7 @@ RUN chmod 755 /redis/utils/expect_configure.sh
 RUN /redis/utils/expect_configure.sh
 
 # Expose the default redis port
-#EXPOSE :6379
+EXPOSE :6379
 
 # Start Redis
-#CMD /usr/local/bin/redis-server 
+CMD /usr/local/bin/redis-server 
