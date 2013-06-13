@@ -12,6 +12,8 @@
 
 FROM ubuntu
 MAINTAINER John Costa <john.costa@gmail.com>
+ENV REDIS_VERSION 2.4.18
+ENV REDIS_BRANCH 2.4-dockerized 
 
 # install your dependencies
 RUN apt-get update
@@ -20,16 +22,18 @@ RUN apt-get install -y wget make gcc tcl8.5
 RUN apt-get install -y expect
 
 # Download and Install Redis
-RUN wget http://redis.googlecode.com/files/redis-2.4.18.tar.gz
-RUN tar xzf redis-2.4.18.tar.gz
-RUN cd /redis-2.4.18/src/; make install; make test
-RUN rm redis-2.4.18.tar.gz
+RUN wget http://redis.googlecode.com/files/redis-$REDIS_VERSION.tar.gz
+RUN tar xzf redis-$REDIS_VERSION.tar.gz
+RUN rm redis-$REDIS_VERSION.tar.gz
+RUN mv /redis-$REDIS_VERSION /redis
+RUN cd /redis/src/; make install; make test
 
 # Redis installs with prompts to control configuration
-# Use the expect script to select the default configuration 
-RUN cd /redis-2.4.18/utils/; wget --no-check-certificate https://raw.github.com/johncosta/redis/2.4-dockerized/utils/expect_configure.sh 
-RUN chmod 755 /redis-2.4.18/utils/expect_configure.sh 
-RUN /redis-2.4.18/utils/expect_configure.sh
+# Use the expect script to select the default configuration
+# Ideally this script is distributed with the redis bundle 
+RUN cd /redis/utils/; wget --no-check-certificate https://raw.github.com/johncosta/redis/$REDIS_BRANCH/utils/expect_configure.sh 
+RUN chmod 755 /redis/utils/expect_configure.sh 
+RUN /redis/utils/expect_configure.sh
 
 # Expose the default redis port
 EXPOSE :6379
